@@ -1,0 +1,133 @@
+{% load static %}
+<html>
+<head>
+<title>{% block head_title %}Trackdown your product{% endblock head_title %}</title>
+
+<nav class="navbar navbar-expand-sm" style="background-color: grey;">
+    {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'userpage' %}">Home</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'list' %}">All posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        {% else %} 
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+        </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+            </ul>
+            {% endif %}
+    </nav>
+
+<link rel="stylesheet" href="https://bootswatch.com/4/slate/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+
+<style>
+    h1 {text-align: center;}
+    div {text-align: center;}
+</style>
+<style>
+    .cards {
+      margin: 0 auto;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(225px, 1fr));
+      grid-auto-rows: auto;
+      gap: 20px;
+      font-family: sans-serif;
+      padding-top: 30px;
+  }
+  
+  .cards * {
+      box-sizing: border-box;
+  }
+  
+  .card__image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+      border-top: 2px solid #333333;
+      border-right: 2px solid #333333;
+      border-left: 2px solid #333333;
+  }
+  
+  .card__content {
+      line-height: 1.5;
+      font-size: 0.9em;
+      padding: 15px;
+      background: #fafafa;
+      border-right: 2px solid #333333;
+      border-left: 2px solid #333333;
+  }
+  
+  .card__content > p:first-of-type {
+      margin-top: 0;
+  }
+  
+  .card__content > p:last-of-type {
+      margin-bottom: 0;
+  }
+  
+  .card__info {
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #555555;
+      background: #eeeeee;
+      font-size: 0.8em;
+      border-bottom: 2px solid #333333;
+      border-right: 2px solid #333333;
+      border-left: 2px solid #333333;
+  }
+  
+  .card__info i {
+      font-size: 0.9em;
+      margin-right: 8px;
+  }
+  
+  .card__link {
+      color: #283029;
+      text-decoration: none;
+  }
+  
+  .card__link:hover {
+      text-decoration: underline;
+  }
+  
+  </style>
+
+</head>
+<body>
+   
+
+{% include "messages_display.html" %}
+<div class='container'>
+{% block content %}{% endblock content %}
+</div>
+
+</body>
+</html>
+
+
+
+

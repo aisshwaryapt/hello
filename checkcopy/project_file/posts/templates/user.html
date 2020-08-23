@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>
+<h3>
+    Hello {{ user|title }}!!
+</h3>
+<blockquote style=" border-top: 0.5px dotted grey;"><br>
+<h5 style="text-align: left;">Create new posts uploading images of the product you're wanting and leave any 
+    note or decription( maybe the material of the product or the range etc..) you want to and do specify the
+     category of the product.<br>
+    </h5>
+    <a href="{% url 'create' %}"class="btn btn-primary" role="button">Create a new post</a><br>
+</blockquote>
+
+<blockquote style=" border-top: 0.5px dotted grey;"><br>
+<h5 style="text-align: left;">Here's the list of posts you've posted so far...Do check the
+     post comments for any potential comments that may help you find the product.<br>
+    </h5>
+    <a href="{% url 'userlist' %}"class="btn btn-primary" role="button">Your Posts</a><br>
+</blockquote>
+
+<blockquote style=" border-top: 0.5px dotted grey;"><br>
+<h5 style="text-align: left;">Here's the list of posts that you've commented on...Check for replies from the post owner
+to take things forward.<br>
+    </h5>
+    <a href="{% url 'commposts' %}"class="btn btn-primary" role="button">Posts you've Commented on</a><br>
+</blockquote>
+
+
+{% endblock content %}

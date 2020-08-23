@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+<div class='col-sm-6 col-sm-offset-3'>
+  <br><h2 style="text-align: left">Posts</h2><br>
+<form method='GET' action='' class='row'>
+      <div class='col-sm-6'>
+          <div class='input-group'>
+              <input class='form-control' type='text' name='q' placeholder='Category/Users/Content' value='{{ request.GET.q }}'/>
+              <span class='input-group-btn'>
+                  <!-- <input class='btn btn-default' type='submit' value='Search' /> -->
+                  <button class='btn btn-default' type='submit'>Search <i class="fa fa-search"></i></button>
+              </span>
+          </div>
+      </div>
+</form>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="cards">
+  {% for obj in list %}
+  <div class="card">
+    <img class="card__image" src="{{obj.image.url}}" alt="">
+    <div class="card__content">
+        <h3 style="color: #283029;">{{ obj.category|title }}</h3> <small>{{ obj.update|timesince }} ago</small>
+    </div>
+    <div class="card__info">
+      <div>
+        <a href="{{ obj.get_absolute_url }}" class="btn btn-primary" >View Article</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if list.has_previous %}
+            //<a href="?page=1">&laquo; first</a>
+            <a href="?page={{ list.previous_page_number }} & q={{ request.GET.q }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ list.number }} of {{ list.paginator.num_pages }}.
+        </span>
+
+        {% if list.has_next %}
+            <a href="?page={{ list.next_page_number }} & q={{ request.GET.q }}">Next</a>
+            //<a href="?page={{ list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</div> 
+
+{% endblock content %}

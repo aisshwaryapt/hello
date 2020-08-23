@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+{% load urlify %}
+
+{% block head_title %}
+{{ instance.title }} | {{ block.super }}
+{% endblock head_title %}
+
+
+{% block content %}
+
+<div style="text-align: left;">
+    {% if instance.image %}
+    <img src='{{ instance.image.url }}' class='img-responsive' />
+    {% endif %}
+<h2>{{ instance.category |title}} <small>{{ instance.update}}</small></h2>
+<p><h5>Description/Note:{{ instance.content}}</h5></p>
+<div style="text-align: left;">
+{% if user.is_authenticated and instance.user == request.user %}
+
+<p><a href={% url 'update' instance.id %} class="btn btn-primary" role="button">Edit</a>
+<a href={% url 'delete' instance.id %} class="btn btn-primary" role="button">Delete</a></p>
+</div>
+
+{% endif %}
+<h6>Do comment below business any contact or any  links if you are willing to sell 
+    exact or any similar product</h6>
+
+</div>
+<div style="text-align: left;">
+     <b>Comments</b>
+     <form method="POST" action="."> 
+         {% csrf_token %}
+        {{ comment_form }}
+        <input type='submit' value='Post comment' class='btn btn-default'>
+    </form>
+     <hr/>
+     {% for comment in comments%}
+     <blockquote ><br>
+        <p style="text-align: left">{{ comment.content }}</p>
+        <div>
+        {% for child_comment in comment.children %}
+              <blockquote>
+                <p style="text-align: left"> {{ child_comment.content }}</p>
+              <footer style="text-align: left">--via {{ child_comment.user }} | {{ child_comment.timestamp|timesince }} ago</footer>
+              </blockquote>
+           {% endfor %}
+
+          <form style="text-align: left" method="POST" action="."> {% csrf_token %}
+              {{ comment_form}}
+              <input type='hidden' name='parent_id' value='{{ comment.id }}'>
+              <input type='submit' value='Reply' class='btn btn-default'>
+          </form>
+      </div>
+      </blockquote>
+    <hr/>
+     {% endfor %}
+</div>
+
+{% endblock content %}
